@@ -14,7 +14,8 @@ public class Server {
 
       server.createContext("/integration", IntegrationController::integrate);
       server.createContext("/image/save", ImageController::save);
+      server.createContext("/image/load", ImageController::load);
+      server.createContext("/image/test", ImageController::test);
       server.start();
-    }
-  
+    } 
 }

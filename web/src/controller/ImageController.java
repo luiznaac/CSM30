@@ -26,5 +26,19 @@ public class ImageController implements HttpHandler {
     
     ResponseManipulator.send(request, image.save());
   }
+  
+  public static void load(HttpExchange request) throws IOException {
+    HashMap<String, String> parameters = RequestManipulator.parameters(request);
+    JSONObject attributes = RequestManipulator.attributes(request);
+    
+    Image image = new Image(parameters, attributes);
+    
+    ResponseManipulator.sendImage(request, image.load());
+  }
+  
+  public static void test(HttpExchange request) throws IOException {
+    RequestManipulator.image(request);    
+    ResponseManipulator.send(request, "teste");
+  }
 
 }

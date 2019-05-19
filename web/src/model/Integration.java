@@ -19,15 +19,14 @@ public class Integration {
     
     try {
       response += "\n"
-                + "date: " + parameters.get("date") + "\n"
-                + "username: " + attributes.get("username") + "\n"
-                + "password: " + attributes.get("password");
+                + "date: " + (parameters.containsKey("date") ? parameters.get("date") : "") + "\n"
+                + "username: " + (attributes.has("username") ? attributes.get("username") : "") + "\n"
+                + "password: " + (attributes.has("password") ? attributes.get("password") : "");
     }
     catch(Exception e) {
-      e.printStackTrace();
+      //e.printStackTrace();
     }
     
     return response;
   }
-  
 }
