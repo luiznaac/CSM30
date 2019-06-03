@@ -1,6 +1,8 @@
 package controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 
 import org.json.JSONObject;
@@ -22,9 +24,14 @@ public class IntegrationController implements HttpHandler {
     HashMap<String, String> parameters = RequestManipulator.parameters(request);
     JSONObject attributes = RequestManipulator.attributes(request);
     
+    InputStreamReader isr = new InputStreamReader(request.getRequestBody(), "utf-8");
+    BufferedReader br = new BufferedReader(isr);
+    System.out.println(br.readLine());
+    
     Integration integration = new Integration(parameters, attributes);
 
     ResponseManipulator.send(request, integration.integrate());
   }
 
 }
+
