@@ -28,21 +28,29 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    seconddialog.cpp \
-    registerdialog.cpp
+    servertest.cpp \
+    appscreen.cpp \
+    screenregister.cpp \
+    screendownload.cpp
 
 HEADERS += \
         mainwindow.h \
-    seconddialog.h \
-    registerdialog.h
+    servertest.h \
+    appscreen.h \
+    screenregister.h \
+    screendownload.h
 
 FORMS += \
         mainwindow.ui \
-    seconddialog.ui \
-    registerDialog.ui \
-    registerdialog.ui
+    appscreen.ui \
+    screenregister.ui \
+    screendownload.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES +=
+
+RESOURCES +=

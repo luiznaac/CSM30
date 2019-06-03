@@ -8,7 +8,9 @@
 #include <QNetworkAccessManager> //make requests
 #include <QNetworkReply> //to handle replies
 #include <QPixmap> //to work with images
-#include "registerDialog.h"
+#include <QTcpSocket>
+#include "screenregister.h"
+#include "appscreen.h"
 
 namespace Ui {
 class MainWindow;
@@ -29,6 +31,7 @@ public:
 
 public slots:
     void newRegister(QString login, QString password);
+
 private slots:
     void on_pushButton_clicked();
     void downloadFinished(QNetworkReply*);
@@ -38,11 +41,16 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QString myUrl = "https://images.uncyc.org/pt/thumb/c/c3/Negao_da_picona.jpg/300px-Negao_da_picona.jpg";
-    registerDialog regDialog;
+    QString myUrl = "http://192.168.0.18:8500/image/test";
+            //"http://192.168.0.18:8500/integration?date=2019-05-15";
+            //"https://images.uncyc.org/pt/thumb/c/c3/Negao_da_picona.jpg/300px-Negao_da_picona.jpg";
+            //"http://192.168.0.18:8500/image/load";
+    screenRegister reg;
+    appScreen app;
     QString userLogin;
     QString userPassword;
-
+    void pixMapToByteArray(QPixmap pixmap);
+    QTcpSocket *socket;
 };
 
 #endif // MAINWINDOW_H
