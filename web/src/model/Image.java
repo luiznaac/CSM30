@@ -44,7 +44,7 @@ public class Image {
   
   public File load() {
     try {
-      File file = new File("test2.jpg");
+      File file = new File("test.jpg");
       return file;
     }  
     catch(Exception e) {

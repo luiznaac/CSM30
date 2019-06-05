@@ -24,7 +24,7 @@ public class Integration {
                 + "password: " + (attributes.has("password") ? attributes.get("password") : "");
     }
     catch(Exception e) {
-      //e.printStackTrace();
+      e.printStackTrace();
     }
     
     return response;

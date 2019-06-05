@@ -52,23 +52,20 @@ public class RequestManipulator {
   
   public static void image(HttpExchange request) {
     try {
-      Headers responseHeaders = request.getResponseHeaders();
+      /*Headers responseHeaders = request.getResponseHeaders();
       responseHeaders.set("Content-Type", "application/png");
-      request.sendResponseHeaders(200, 0);
+      request.sendResponseHeaders(200, 0);*/
       
       InputStream inputStream = request.getRequestBody();
       byte[] buffer = new byte[4096];
       int lengthRead;
       FileOutputStream fileOutputStream = new FileOutputStream("cassio_received.jpg");
 
-      while ((lengthRead = inputStream.read(buffer, 0, 4096)) > 0)
-      {
+      while ((lengthRead = inputStream.read(buffer, 0, 4096)) > 0) {
           fileOutputStream.write(buffer, 0, lengthRead);
       }
 
       fileOutputStream.close();
-
-      request.getResponseBody().close();
     }
     catch(Exception e) {
       e.printStackTrace();

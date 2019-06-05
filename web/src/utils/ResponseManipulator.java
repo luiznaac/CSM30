@@ -11,9 +11,10 @@ public class ResponseManipulator {
   public static void send(HttpExchange request, String response) {
     try {
       request.sendResponseHeaders(200, response.length());
-      OutputStream os = request.getResponseBody();
-      os.write(response.getBytes());
-      os.close();
+      OutputStream outputStream = request.getResponseBody();
+      outputStream.write(response.getBytes());
+      outputStream.close();
+      request.getResponseBody().close();
     }
     catch(Exception e) {
       e.printStackTrace();
@@ -22,10 +23,11 @@ public class ResponseManipulator {
   
   public static void sendImage(HttpExchange request, File file) {
     try {
-      OutputStream outputStream = request.getResponseBody();
       request.sendResponseHeaders(200, file.length());
+      OutputStream outputStream = request.getResponseBody();
       Files.copy(file.toPath(), outputStream);
       outputStream.close();
+      request.getResponseBody().close();
     }
     catch(Exception e) {
       e.printStackTrace();
