@@ -25,6 +25,9 @@ public class HttpContainer {
     server.createContext("/image/save", ImageController::save);
     server.createContext("/image/load", ImageController::load);
     server.createContext("/image/test", ImageController::test);
+    server.createContext("/image/signal", ImageController::loadSignal);
+    server.createContext("/image/list", ImageController::listImages);
+    server.createContext("/image/get", ImageController::getImage);
     server.start();
   }
   
@@ -33,3 +36,4 @@ public class HttpContainer {
   }
   
 }
+

@@ -26,7 +26,6 @@ public class IntegrationController implements HttpHandler {
     
     InputStreamReader isr = new InputStreamReader(request.getRequestBody(), "utf-8");
     BufferedReader br = new BufferedReader(isr);
-    System.out.println(br.readLine());
     
     Integration integration = new Integration(parameters, attributes);
 

@@ -1,53 +1,43 @@
 package model;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
 import org.jblas.FloatMatrix;
 
 public class G {
   
   private static FloatMatrix g;
   
-  public G(String path) {
-    g = new FloatMatrix(loadG(path));
+  public G(String signal) {
+    g = new FloatMatrix(loadG(signal));
   }
   
   public FloatMatrix getG() {
     return g;
   }
   
-  private float[][] loadG(String path) {
-    try {
-      FileReader reader = new FileReader(path);
-      BufferedReader br = new BufferedReader(reader);
-      String line;
-      String[] splitted;
+  private float[][] loadG(String signal) {
       float[][] g = new float[50816][1];
-      int i = 0;
-      int j;
+      String[] splitted = signal.split(",");
+      int i = 0;  
       
-      while ((line = br.readLine()) != null) {
-        splitted = line.split(",");
-        j = 0;
-        
-        for(String s : splitted) {
-          g[i][j] = Float.parseFloat(s);
-          j++;
-        }
-        
+      for(String s : splitted) {
+        g[i][0] = Float.parseFloat(s);
         i++;
       }
       
-      br.close();
-      
       return g;
-    } 
-    catch (IOException e) {
-        e.printStackTrace();
-        return null;
+  }
+  
+  private float[][] treatGain(float[][] g_gain) {
+    float[][] g_treated = new float[50816][1];
+    int j = 0;
+    
+    for(int i = 0 ; i < 50816 ; i++) {
+      if(i%64 == 0)
+        j++;
+      g_treated[i][1] = g_gain[i][0] - (float)j;
     }
+    
+    return g_treated;
   }
 
 }

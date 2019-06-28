@@ -12,15 +12,24 @@ public class CGNE {
   public CGNE(FloatMatrix g) {
     r0 = g;
     f = FloatMatrix.zeros(3600);
+    
+    GlobalLock.lock();
     p = H.getH().transpose().mmul(r0);
+    GlobalLock.unlock();
   }
   
   public float iterate() {
     FloatMatrix a = alpha();
     f = f.add(a.mmul(p));
+    
+    GlobalLock.lock();
     r1 = r0.sub(a.mmul(H.getH().mmul(p)));
+    GlobalLock.unlock();
+    
     FloatMatrix b = beta();
+    GlobalLock.lock();
     p = H.getH().transpose().mmul(r1).add(b.mmul(p));
+    GlobalLock.unlock();
     r0 = r1;
     
     return r1.norm2();

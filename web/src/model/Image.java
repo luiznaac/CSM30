@@ -3,8 +3,9 @@ package model;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.HashMap;
-
 import org.json.JSONObject;
+
+import database.DatabaseConnector;
 
 public class Image {
   
@@ -28,8 +29,6 @@ public class Image {
       image_data[i] = (byte)Integer.parseInt(raw_bytes[i]);
     }
     
-    System.out.println("caiiss");
-    
     try {
       FileOutputStream output_stream = new FileOutputStream("received_image.png");
       output_stream.write(image_data);
@@ -42,9 +41,10 @@ public class Image {
     }
   }
   
-  public File load() {
+  public static File load(int id) {
     try {
-      File file = new File("test.jpg");
+      String path = DatabaseConnector.getPathForId(id);
+      File file = new File(path);
       return file;
     }  
     catch(Exception e) {
@@ -56,4 +56,17 @@ public class Image {
   public String test() {
     return "ok.";
   }
+  
+  public static void processSignal(String signal, String username) {
+    G g = new G(signal);
+    CGNE cgne = new CGNE(g.getG());
+    Runnable runCgne = new CGNEThread(cgne, username);
+    Thread tCgne = new Thread(runCgne);
+    tCgne.start();
+  }
+  
+  public static String listImages(String username) {
+    return DatabaseConnector.getImagesForUsername(username);
+  }
+  
 }

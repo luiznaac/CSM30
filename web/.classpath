@@ -5,5 +5,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/luiza/OneDrive/UTFPR/Arquivos/2019-1/Desenvolvimento Integrado de Sistemas/json-20180813.jar"/>
 	<classpathentry kind="lib" path="C:/Users/luiza/OneDrive/UTFPR/Arquivos/2019-1/Desenvolvimento Integrado de Sistemas/jblas-1.2.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/luiza/OneDrive/UTFPR/Arquivos/2019-1/Desenvolvimento Integrado de Sistemas/postgresql-42.2.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

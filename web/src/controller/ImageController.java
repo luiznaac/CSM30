@@ -40,5 +40,42 @@ public class ImageController implements HttpHandler {
     RequestManipulator.image(request);    
     ResponseManipulator.send(request, "teste");
   }
+  
+  public static void loadSignal(HttpExchange request) throws IOException {
+    new Thread() {
+      @Override
+      public void run() {
+        HashMap<String, String> parameters = RequestManipulator.parameters(request);
+        JSONObject attributes = RequestManipulator.attributes(request);
+        ResponseManipulator.send(request, "Received.");
+        
+        Image.processSignal((String)attributes.get("signal"), (String)attributes.get("username"));
+      }
+    }.start();
+  }
+  
+  public static void listImages(HttpExchange request) {
+    new Thread() {
+      @Override
+      public void run() {
+        HashMap<String, String> parameters = RequestManipulator.parameters(request);
+        JSONObject attributes = RequestManipulator.attributes(request);
+        String list = Image.listImages((String)attributes.get("username"));
+        
+        ResponseManipulator.send(request, list);
+      }
+    }.start();
+  }
+  
+  public static void getImage(HttpExchange request) {
+    new Thread() {
+      @Override
+      public void run() {
+        HashMap<String, String> parameters = RequestManipulator.parameters(request);
+        JSONObject attributes = RequestManipulator.attributes(request);
+        ResponseManipulator.sendImage(request, Image.load((Integer)attributes.get("id")));
+      }
+    }.start();
+  }
 
 }

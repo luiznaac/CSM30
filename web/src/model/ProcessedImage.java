@@ -4,20 +4,33 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 
 import javax.imageio.ImageIO;
+
+import database.DatabaseConnector;
 
 public class ProcessedImage {
 
   private float[] f;
   private float min, max;
+  private int imageNumber;
   
   public ProcessedImage(float[] f) {
     this.f = f;
+    imageNumber = getNumberOfExistentImages() + 1;
     setMinAndMax();
   }
   
-  public void saveImage() {
+  private int getNumberOfExistentImages() {
+    File dir = new File("images");
+
+    File[] files = dir.listFiles();
+    
+    return files == null ? 0 : files.length;
+  }
+  
+  public void saveImage(String username, int iterations, Timestamp start) {
     BufferedImage img = new BufferedImage(60, 60, BufferedImage.TYPE_INT_RGB);
     
     for(int i = 0 ; i < 60 ; i++) {
@@ -28,7 +41,9 @@ public class ProcessedImage {
     }
     
     try {
-        ImageIO.write(img, "BMP", new File("test.bmp"));
+      String path = "images/image_" + imageNumber + ".bmp";
+      ImageIO.write(img, "BMP", new File(path));
+      DatabaseConnector.registerImage(username, path, iterations, start, new Timestamp(System.currentTimeMillis()));
     } catch (IOException e) {
 
     }
